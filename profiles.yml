@@ -1,4 +1,4 @@
-default:
+warehouse_mobility:
   outputs:
     dev:
     type: snowflake
