@@ -1,14 +1,11 @@
-name: Scheduled dbt Build
+name: dbt Test & Connexion
 
 on:
-  schedule:
-    - cron: "0 5 * * 1-5" # Tous les jours de la semaine à 5h00 UTC
   workflow_dispatch:
 
 jobs:
-  dbt-build:
+  dbt-test-connection:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -39,5 +36,5 @@ jobs:
           echo "      warehouse: \"${{ secrets.DBT_WAREHOUSE }}\"" >> ~/.dbt/profiles.yml
           echo "      schema: \"${{ secrets.DBT_SCHEMA }}\"" >> ~/.dbt/profiles.yml
 
-      - name: Run dbt build
-        run: dbt build
+      - name: Test dbt connection
+        run: dbt debug
