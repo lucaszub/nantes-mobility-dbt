@@ -43,5 +43,5 @@ default:
       client_session_keep_alive: False
 EOL
 
-      - name: Run dbt build
+      - name: Run dbt build test
         run: dbt build
