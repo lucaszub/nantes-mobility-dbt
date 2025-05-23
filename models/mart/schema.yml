@@ -34,7 +34,7 @@ models:
           - relationships:
               to: ref('dim_station')
               field: station_id
-      - name: date_hour
+      - name: date_hour_str
         description: "Hour of the record, formatted as DD/MM/YYYY HHh00."
         tests:
           - not_null
@@ -60,26 +60,26 @@ models:
         description: "Whether the station is returning."
 
   - name: dim_date
-    description: "The dimension table contains date information, including day, month, year, and other relevant details."
+    description: "La table de dimension date contient des informations détaillées sur chaque heure, incluant le jour, le mois, l'année, l'heure, le nom du jour en français, les week-ends et les jours fériés."
     columns:
       - name: date_hour
-        description: "Hour of the record (timestamp)."
+        description: "Horodatage de l'heure (timestamp)."
         tests:
           - not_null
           - unique
-      - name: date_str
-        description: "date_hour formatted as DD/MM/YYYY"
+      - name: date_jour_str
+        description: "Date au format JJ/MM/AAAA (ex: 16/01/2024)."
         tests:
           - not_null
       - name: date_hour_str
-        description: "Hour of the record, formatted as DD/MM/YYYY HHh00."
+        description: "Date et heure au format JJ/MM/AAAA HHh00 (ex: 16/01/2024 14h00)."
         tests:
           - not_null
       - name: day_name_fr
-        description: "Day name in French."
+        description: "Nom du jour en français (ex: Lundi, Mardi, ...)."
       - name: hour
-        description: "Hour of the day."
+        description: "Heure de la journée (0 à 23)."
       - name: is_weekend
-        description: "True if the day is a weekend."
+        description: "Vrai si le jour est un week-end (samedi ou dimanche)."
       - name: is_holiday
-        description: "True if the day is a holiday."
+        description: "Vrai si le jour est un jour férié (France)."
