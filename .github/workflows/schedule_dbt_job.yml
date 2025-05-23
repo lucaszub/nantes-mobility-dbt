@@ -36,7 +36,7 @@ jobs:
       - name: Run dbt models
         run: dbt run --target dev
       - name: Test dbt models
-        run: dbt test
+        run: dbt test --target dev
   hello_world:
     runs-on: ubuntu-latest
     env:
