@@ -37,15 +37,3 @@ jobs:
         run: dbt run --target dev
       - name: Test dbt models
         run: dbt test --target dev
-  hello_world:
-    runs-on: ubuntu-latest
-    env:
-      DBT_SNOWFLAKE_USERNAME: ${{ secrets.DBT_SNOWFLAKE_USERNAME }}
-      DBT_SNOWFLAKE_PW: ${{ secrets.DBT_SNOWFLAKE_PW }}
-      DBT_SNOWFLAKE_ROLE: ${{ secrets.DBT_SNOWFLAKE_ROLE }}
-    steps:
-      - name: Print env variables
-        run: |
-          echo "DBT_SNOWFLAKE_USERNAME=$DBT_SNOWFLAKE_USERNAME"
-          echo "DBT_SNOWFLAKE_PW=$DBT_SNOWFLAKE_PW"
-          echo "DBT_SNOWFLAKE_ROLE=$DBT_SNOWFLAKE_ROLE"
