@@ -1,13 +1,47 @@
-name: hello_world_on_push
-
+name: schedule_dbt_job
 on:
+  schedule:
+    # run at 7AM every single day
+    - cron: "0 7 * * *"
   push:
     branches:
+      - development
       - "**"
+env:
+  DBT_PROFILES_DIR: ./
+  DBT_SNOWFLAKE_USERNAME: ${{ secrets.DBT_SNOWFLAKE_USERNAME }}
+  DBT_SNOWFLAKE_PW: ${{ secrets.DBT_SNOWFLAKE_PW }}
+  DBT_SNOWFLAKE_ROLE: ${{ secrets.DBT_SNOWFLAKE_ROLE }}
 
 jobs:
+  schedule_dbt_job:
+    name: schedule_dbt_job
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          pip install dbt-snowflake
+          dbt deps
+      - name: Run dbt models
+        run: dbt run
+      - name: Test dbt models
+        run: dbt test
   hello_world:
     runs-on: ubuntu-latest
+    env:
+      DBT_SNOWFLAKE_USERNAME: ${{ secrets.DBT_SNOWFLAKE_USERNAME }}
+      DBT_SNOWFLAKE_PW: ${{ secrets.DBT_SNOWFLAKE_PW }}
+      DBT_SNOWFLAKE_ROLE: ${{ secrets.DBT_SNOWFLAKE_ROLE }}
     steps:
-      - name: Say Hello World
-        run: echo "Hello, world!"
+      - name: Print env variables
+        run: |
+          echo "DBT_SNOWFLAKE_USERNAME=$DBT_SNOWFLAKE_USERNAME"
+          echo "DBT_SNOWFLAKE_PW=$DBT_SNOWFLAKE_PW"
+          echo "DBT_SNOWFLAKE_ROLE=$DBT_SNOWFLAKE_ROLE"
