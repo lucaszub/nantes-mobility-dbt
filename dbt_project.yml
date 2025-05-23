@@ -1,0 +1,23 @@
+name: "warehouse_mobility"
+version: "1.0.0"
+profile: "warehouse_mobility"
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  warehouse_mobility:
+    staging:
+      +schema: staging
+      +materialized: view
+    mart:
+      +schema: mart
+      +materialized: table

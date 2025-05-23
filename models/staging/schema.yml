@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: raw
+    database: nantes_mobility
+    schema: raw
+    tables:
+      - name: station_status_raw
+        description: "The table contains records of bike-sharing station statuses. Each record represents the current status of a station and includes details such as the number of available bikes, vehicle types, and dock availability."
+      - name: station_information_raw
+        description: "The table contains information about bike-sharing stations, including their names, locations, and other relevant details."

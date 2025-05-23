@@ -1,0 +1,81 @@
+version: 2
+
+models:
+  - name: dim_station
+    description: "The dimension table contains detailed information about bike-sharing stations, including their names, locations, and other relevant details."
+    columns:
+      - name: station_id
+        description: "Unique identifier for the station."
+        tests:
+          - not_null
+          - unique
+      - name: station_name
+        description: "Name of the station."
+        tests:
+          - not_null
+      - name: address
+        description: "Address of the station."
+      - name: rental_methods
+        description: "Rental methods available at the station."
+      - name: capacity
+        description: "Capacity of the station."
+      - name: latitude
+        description: "Latitude of the station."
+      - name: longitude
+        description: "Longitude of the station."
+
+  - name: fact_station_hourly_sage
+    description: "The fact table contains hourly records of bike-sharing station statuses, including the number of available bikes, vehicle types, and dock availability."
+    columns:
+      - name: station_id
+        description: "Unique identifier for the station."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_station')
+              field: station_id
+      - name: date_hour
+        description: "Hour of the record, formatted as DD/MM/YYYY HHh00."
+        tests:
+          - not_null
+      - name: capacity
+        description: "Capacity of the station."
+      - name: estimated_departures
+        description: "Estimated number of bike departures during the hour."
+      - name: estimated_arrivals
+        description: "Estimated number of bike arrivals during the hour."
+      - name: num_bikes_available
+        description: "Number of bikes available."
+      - name: num_docks_available
+        description: "Number of docks available."
+      - name: num_docks_disabled
+        description: "Number of docks disabled."
+      - name: num_bikes_disabled
+        description: "Number of bikes disabled."
+      - name: is_installed
+        description: "Whether the station is installed."
+      - name: is_renting
+        description: "Whether the station is renting."
+      - name: is_returning
+        description: "Whether the station is returning."
+
+  - name: dim_date
+    description: "The dimension table contains date information, including day, month, year, and other relevant details."
+    columns:
+      - name: date_hour
+        description: "Hour of the record (timestamp)."
+        tests:
+          - not_null
+          - unique
+      - name: date_hour_str
+        description: "Hour of the record, formatted as DD/MM/YYYY HHh00."
+        tests:
+          - not_null
+      - name: day_name_fr
+        description: "Day name in French."
+      - name: hour
+        description: "Hour of the day."
+      - name: is_weekend
+        description: "True if the day is a weekend."
+      - name: is_holiday
+        description: "True if the day is a holiday."
