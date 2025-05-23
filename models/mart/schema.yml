@@ -67,6 +67,8 @@ models:
         tests:
           - not_null
           - unique
+      - name: date_str
+        description: "date of the record (str)."
       - name: date_hour_str
         description: "Hour of the record, formatted as DD/MM/YYYY HHh00."
         tests:

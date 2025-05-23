@@ -9,6 +9,7 @@ enriched as (
         date_hour,
         -- Format : 16/05/2026 16h00
         TO_VARCHAR(date_hour, 'DD/MM/YYYY') || ' ' || TO_VARCHAR(date_hour, 'HH24') || 'h00' as date_hour_str,
+        TO_VARCHAR(date_hour, 'DD/MM/YYYY') ad date_str,
         case EXTRACT(DAYOFWEEK FROM date_hour)
             when 1 then 'Dimanche'
             when 2 then 'Lundi'
